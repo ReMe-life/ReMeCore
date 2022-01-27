@@ -1,10 +1,23 @@
 const mongoose = require('mongoose');
 
-const mongoUrl = process.env.MONGODB_URL  || 'mongodb://127.0.0.1:27017/remecore'
+var mongoUrl = process.env.MONGODB_URL  || 'mongodb://127.0.0.1:27017/remecore';
 
+switch (process.env.NODE_ENV) {
+    case "dev": 
+        mongoUrl = process.env.DEV_MONGODB_URL;
+        break;
+    case "staging": 
+        mongoUrl = process.env.STAGING_MONGODB_URL;
+        break;
+    case "live":
+        mongoUrl = process.env.LIVE_MONGODB_URL;
+        break;
+    default:
+        mongoUrl = 'mongodb://127.0.0.1:27017/remecore';
+}
 
-
-mongoose.connect('mongodb://127.0.0.1:27017/remecore', {
+console.log("Mongo: "+mongoUrl)
+mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
