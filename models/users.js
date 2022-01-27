@@ -5,7 +5,7 @@ var User = db.model('User',{
   firstname: { type: String},
   lastname: { type: String },
   username: { type: String, required: true },
-  email: { type: String, required: true }
+  email: { type: String }
 })
 module.exports = User
 
