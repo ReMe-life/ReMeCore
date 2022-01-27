@@ -90,9 +90,9 @@ auth.post('/register',  (req, res, next) => {
                 if (err) { return next(err) }
                 // create new user
                 var user = new User({id: id,
-                    username: req.body.email, 
-                    firstname: req.body.firstName,
-                    lastname: req.body.lastName,
+                    username: req.body.username, 
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
                     email: req.body.email,
                     password: hash
                 }) //new User
