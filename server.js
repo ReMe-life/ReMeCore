@@ -4,12 +4,12 @@
 // call the packages we need
 const express    = require('express');        // call express
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const random = require('generate-random-data');
-const bcrypt   = require('bcrypt')
-const jwt      = require('jsonwebtoken')
-const path     = require('path');
-const fs     = require('fs');
+const dotenv     = require('dotenv');
+const random     = require('generate-random-data');
+const bcrypt     = require('bcrypt')
+const jwt        = require('jsonwebtoken')
+const path       = require('path');
+const fs         = require('fs');
 
 
 // get config vars
@@ -22,8 +22,23 @@ const app        = express();
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// SET PORT
 
-const port = process.env.PORT || 4567;        // set our port
+var port = 80;
+
+switch (process.env.NODE_ENV) {
+    case "dev": 
+        port = process.env.DEVPORT || 3456;
+        break;
+    case "staging": 
+        port = process.env.STAGINGPORT || 4567;
+        break;
+    case "live":
+        port = process.env.LIVEPORT || 5678;
+        break;
+    default:
+        port = 80;
+}
 
 
 
@@ -98,11 +113,10 @@ auth.post('/register',  (req, res, next) => {
 })
 
 // auth POST login
+
 auth.post('/login',  (req, res, next)  =>  {
     
-
     User.findOne({username: req.body.username},  (err, loginUser) => {
-        
         
         if (err) { 
             // invalid username return unknown user error
@@ -146,20 +160,24 @@ auth.post('/login',  (req, res, next)  =>  {
 // GET user/<id>
 users.get('/',  (req, res, next)  => {
     User.findOne({id: req.body.id},  (err, user) => {
-        // invalid username return unknown user error
-        if (err) { return next(err) }
-        // Return User
-        return res.send(user) 
+        if (err) { 
+            return next(err) // invalid username return unknown user error
+        }
+        if (user === null) {
+            return res.sendStatus(404) // not found
+        }     
+        return res.send(user) // Return User
       })
 })
 
-
-users.put('/', (req, res) => {
-    
-    res.json({ message: 'hooray! welcome to our users api!' });
+users.post('/', (req, res) => {   
+    res.json({ message: 'Welcome to reme-core users api!' });
+});
+users.put('/', (req, res) => {   
+    res.json({ message: 'Welcome to reme-core users api!' });
 });
 users.delete('/', (req, res) => {
-    res.json({ message: 'hooray! welcome to our users api!' });
+    res.json({ message: 'Welcome to reme-core users api!' });
 });
 
 
@@ -173,4 +191,4 @@ app.use('/users', users);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port + " and SSL via nginx proxy on 8492");
+console.log('Magic happens on port ' + port + " and SSL via nginx proxy  dev: 8491, staging: 8492, live:8000 ");
