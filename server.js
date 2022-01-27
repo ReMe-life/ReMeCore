@@ -99,6 +99,7 @@ auth.post('/register',  (req, res, next) => {
                 
                 user.save( (err)  =>  {
                     if (err) { return next(err) }
+                    console.log("Register new user username: "+req.body.username+" id: "+id)
                     return res.status(201).json({id: id}) // User created
                     
                 }) //user.save
