@@ -11,6 +11,27 @@ server {
   }
 }
 
+## Live
+server {
+  server_name  devcore.remelife.com;
+  location / {
+    proxy_pass http://localhost:5678;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+    listen 8000 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/devcore.remelife.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/devcore.remelife.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+## Staging
 server {
   server_name  devcore.remelife.com;
   location / {
@@ -23,6 +44,25 @@ server {
   }
 
     listen 8492 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/devcore.remelife.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/devcore.remelife.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+## Development
+server {
+  server_name  devcore.remelife.com;
+  location / {
+    proxy_pass http://localhost:3456;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+    listen 8491 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/devcore.remelife.com/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/devcore.remelife.com/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
