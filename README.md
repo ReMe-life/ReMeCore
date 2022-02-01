@@ -2,17 +2,16 @@
 ReMe SSO and Event 
 Provides a minimal SSO capability for the ReMe Wallet  and RRP
 
-POST ../auth/register <JSON <firstname><lastname><email>":"testBB02","email":"testBB@test.com","password":"testing1234"}' \
-https://devcore.remelife.com:8492/auth/register`
+POST ../auth/register <JSON <username><firstname><lastname><email><password>> 
+  On success returns 201 "user created" and <user_id>
+  On failure returns 409 "Duplicate UserName not allowed"
+  
+POST ../auth/login <JSON <username><password>> 
+  On success returns 200 <JWT>
+  On failure returns 401 "Unauthorized"
+
+Get ../users/<id>
+   On success returns 200 <User details>
+  On failure returns 404 "Not found"
 
 
-
-
-
-PUT ../admin/user-update-password  <JSON <secret key>,<username>,<new password>>
----> update users password with new password value and returns 200
-This API will be called from both remelife and reme.care when a user changes their password
-
-GET ../admin/user-JWT  <JSON <secret key>,<username> >    
----> will return 200 and a valid JWT used for SSO for the specified user or a 401 if no user, 404 etc
-This API should be called from the server when a user logs in
