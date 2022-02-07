@@ -18,7 +18,7 @@ Provides a minimal SSO capability for the ReMe Wallet  and RRP
 
 ## GET ../auth/verification_key
 
-  On success returns 200 \PublicKey in PEM format 
+  On success returns 200 \<PublicKey> in PEM format 
 
 ## GET ../users/\<User Id>
 
