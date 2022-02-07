@@ -1,5 +1,5 @@
 # ReMeCore
-ReMe SSO and Event 
+ReMe Core 
 Provides a minimal SSO capability for the ReMe Wallet  and RRP
 
 POST ../auth/register \<JSON New User>
