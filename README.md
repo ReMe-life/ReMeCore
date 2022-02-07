@@ -22,6 +22,6 @@ Provides a minimal SSO capability for the ReMe Wallet  and RRP
 
 ## GET ../users/\<User Id>
 
-   On success returns 200 \<User details>
+   On success returns 200 \<User details> as \<JSON \<username>\<firstname>\<lastname>\<email>>
 
    On failure returns 404 "Not found"
