@@ -1,11 +1,19 @@
 # ReMeCore
 Provides a minimal SSO capability for the ReMe Wallet  and RRP
 
-## POST ../auth/register \<JSON New User>
+## POST ../auth/register 
 
-  New User ::=  \<username>\<firstname>\<lastname>\<email>\<password>
-
-
+### Parameters: None
+### Request Body - Required - application/jon
+ 
+  {
+  "firstname": "string",
+  "lastname": "string",
+  "password": "string",
+  "username": "string"
+  }
+  
+### Responses
   On success returns 201 "user created" and <user_id>
 
   On failure returns 409 "Duplicate UserName not allowed"
@@ -42,6 +50,10 @@ The password reset URL (in the email) contains all of the required fields to mak
 Note that password reset tokens can only be used once and have an expiry
 
 ## POST ../auth/forgot
+
+{
+  "username": "string"
+}
 Request a password reset email
 Sends a password reset email to the provided email address if a matching user is found
 
