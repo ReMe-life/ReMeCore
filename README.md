@@ -10,7 +10,7 @@ Provides a minimal SSO capability for the ReMe Wallet  and RRP
   "firstname": "string",
   "lastname": "string",
   "password": "string",
-  "username": "string"
+  "username": "string" // always email address 
   }
   
 ### Responses
