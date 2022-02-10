@@ -71,7 +71,6 @@ auth.get('/verification_key',  (req, res, next) => {
 
 // auth POST register
 auth.post('/register',  (req, res, next) => {
-
     // check if username already used
     User.findOne({username: req.body.email},  (err, loginUser) => {
         
@@ -100,7 +99,7 @@ auth.post('/register',  (req, res, next) => {
                 user.save( (err)  =>  {
                     if (err) { return next(err) }
                     console.log("Register new user username: "+req.body.username+" id: "+id)
-                    return res.status(201).json({id: id}) // User created
+                    return res.status(200).json({id: id,username: req.body.username}) // User created
                     
                 }) //user.save
             }) // bcrypt.hash
@@ -140,7 +139,10 @@ auth.post('/login',  (req, res, next)  =>  {
                         return next(err) 
                     }
                     console.log("User Login: "+loginUser.username)
-                    return res.status(200).send(token)
+                    return res.status(200).json({id: loginUser.id,
+			                         username: loginUser.username,
+		    				 jwt: token}) // User logged in
+
                     
                 }) //jwt.sign
             })//bcrypt.compare
@@ -159,8 +161,8 @@ auth.post('/login',  (req, res, next)  =>  {
 
 
 // GET user/<id>
-users.get('/',  (req, res, next)  => {
-    User.findOne({id: req.body.id},  (err, user) => {
+users.get('/:userId',  (req, res, next)  => {
+    User.findOne({id: req.params.userId},  (err, user) => {
         if (err) { 
             return next(err) // invalid username return unknown user error
         }
