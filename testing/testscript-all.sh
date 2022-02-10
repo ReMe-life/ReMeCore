@@ -6,13 +6,16 @@ live="https://coresso.remelife.com:8000"
 
 
 URL=$dev
+#URL=$staging
+#URL=$live
+
 ## Get Verification Key
 
-curl -X GET $URL"/auth/verification_key
+curl -X GET $URL/auth/verification_key
 
 
-i="02"
-j="02"
+i="01"
+j="01"
 firstname="First"$i$j
 lastname="Test-Last"$i$j
 username=$firstname$lastname"@surreydemo.co.uk"
@@ -24,7 +27,7 @@ password="testing123"
 echo '{"firstname":"'$firstname'", "lastname":"'$lastname'","username":"'$username'","email":"'$username'","password":"'$password'"}'
 user=`curl -X POST -H "Content-Type: application/json" \
 --data '{"firstname":"'$firstname'", "lastname":"'$lastname'","username":"'$username'","email":"'$username'","password":"'$password'"}' \
-https://devcore.remelife.com:8491/auth/register`
+$URL/auth/register`
 echo $user
 
 ## Get UserId
