@@ -1,0 +1,199 @@
+curl -X GET -H "Content-Type: application/json" https://devcore.remelife.com:8492/auth/verification_key
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"charles", "lastname":"cunningham","username":"charles@test.com","password":"random"}' \
+https://devcore.remelife.com:8492/auth/register
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"charles3", "lastname":"cunningham","username":"charles@test.com","password":"random"}' \
+https://devcore.remelife.com:8492/auth/register
+
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"F9C5CD14-D1F3-B47E-3F71-9FB74084968F"}' \
+https://devcore.remelife.com:8492/users/
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"9E48CBF1-938F-8FD4-CCC0-7D53688F97C3"}' \
+https://devcore.remelife.com:8492/users/
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"charles@test.com","password":"random"}' \
+https://devcore.remelife.com:8492/auth/login
+
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test01", "lastname":"test0102","username":"test01@test.com","password":"testing123"}' \
+https://devcore.remelife.com:8492/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"DB1332A8-8324-800B-A713-C7277EF4B16E"}' \
+https://devcore.remelife.com:8492/users/
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test01@test.com","password":"testing123"}' \
+https://devcore.remelife.com:8492/auth/login
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test03", "lastname":"test0302","username":"test03@test.com","password":"testing123"}' \
+https://devcore.remelife.com:8492/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"26DCB86E-F81F-E9E4-7F0E-65E83FAE462E"}' \
+https://devcore.remelife.com:8492/users/
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test03@test.com","password":"testing123"}' \
+https://devcore.remelife.com:8492/auth/login
+
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test04", "lastname":"test0402","username":"test04@test.com","password":"testing1234"}' \
+https://devcore.remelife.com:8492/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"85487006-22D6-2FCD-DA36-341778CFECD8"}' \
+https://devcore.remelife.com:8492/users/
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test04@test.com","password":"testing1234"}' \
+https://devcore.remelife.com:8492/auth/login
+
+
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test05", "lastname":"test0502","username":"test05@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"8FE2708C-04A7-14FA-8D22-787557F478C7"}' \
+https://devcore.remelife.com:8001/users/
+
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test05@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/login
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test05@test.com","password":"password"}' \
+https://devcore.remelife.com:8492/auth/login
+
+
+
+
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test06", "lastname":"test0602","username":"test05@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"CF6357BB-55DB-74CE-EC65-9F95DD20A22C"}' \
+https://devcore.remelife.com:8001/users/
+
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test0602@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/login
+
++++++++++++++++++++
+curl -X POST -H "Content-Type: application/json" \
+--data '{"firstname":"test0A", "lastname":"test0A02","username":"test05@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/register
+
+
+curl -X GET -H "Content-Type: application/json" \
+--data '{"id":"8635CA35-E921-BF69-F961-8075AD497E24"}' \
+https://devcore.remelife.com:8001/users/
+
+
+
+curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"test0A02@test.com","password":"password"}' \
+https://devcore.remelife.com:8001/auth/login
++++++++++++++++
+
+URL="https://devcore.remelife.com:8492"
+first=FRED1
+last=Bloggs1
+username=$first$last"@gumby.com"
+password="testing123"
+id=`curl -X POST -H "Content-Type: application/json" --data '{"firstname":"'$first'", "lastname":"'$last'","username":"'$username'","password":"'$password'"}' $URL/auth/register`
+
+
+echo "Get Info for user " $id
+curl -X GET -H "Content-Type: application/json"  --data $id $URL/users/
+
+echo "Login User "$username
+jwt=`curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"'$username'","password":"'$password'"}' \
+$URL/auth/login`
+
+echo "JWT = "$jwt
+########################
+
+
+URL="https://devcore.remelife.com:8492"
+
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+for j in 0 1 2 3 4 5 6 7 8 9
+do
+first="Joe"$i$j
+last="Bloggs"$i$j
+username=$first$last"@gumby.com"
+password="testing123"
+id=`curl -X POST -H "Content-Type: application/json" --data '{"firstname":"'$first'", "lastname":"'$last'","username":"'$username'","password":"'$password'"}' $URL/auth/register`
+
+
+echo "Get Info for user " $id
+curl -X GET -H "Content-Type: application/json"  --data $id $URL/users/
+
+echo "Login User "$username
+jwt=`curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"'$username'","password":"'$password'"}' \
+$URL/auth/login`
+
+echo "JWT = "$jwt
+done
+done
+##############
+
+
+URL="https://devcore.remelife.com:8492"
+
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+for j in 0 1 2 3 4 5 6 7 8 9
+do
+first="Joe"$i$j
+last="Bloggs"$i$j
+username=$first$last"@gumby.com"
+password="testing123"
+id=`curl -X POST -H "Content-Type: application/json" --data '{"firstname":"'$first'", "lastname":"'$last'","username":"'$username'","password":"'$password'"}' $URL/auth/register`
+
+
+echo "Get Info for user " $id
+curl -X GET -H "Content-Type: application/json"  --data $id $URL/users/
+
+echo "Login User "$username
+jwt=`curl -X POST -H "Content-Type: application/json" \
+--data '{"username":"'$username'","password":"'$password'"}' \
+$URL/auth/login`
+
+echo "JWT = "$jwt
+done
+done

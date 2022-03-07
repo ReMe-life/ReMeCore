@@ -1,0 +1,18 @@
+[Unit]
+Description=ReMe SSO JWT Server
+Documentation=https://github.com/ReMe-life/ReMeCore/blob/main/README.md
+After=mongod.service
+Wants=mongod.service
+
+[Service]
+ExecStart=/var/www/staging/reme-core/server.js
+Restart=always
+User=staging
+Group=staging
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=staging
+WorkingDirectory=/var/www/staging/reme-core
+
+[Install]
+WantedBy=multi-user.target
+
