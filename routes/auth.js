@@ -184,7 +184,7 @@ auth.post('/register',  (req, res) => {
 
 	{
   	"username": "string"
-  	"appid"   : "string"
+  	"baseurl"   : "string"  // url of password reset page that user navigates to for password reset
     }
 
 	returns
